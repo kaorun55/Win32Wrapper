@@ -23,15 +23,13 @@ DllLoader::DllLoader()
 /**
  * コンストラクタ
  *
- * @param lpDllName DLLファイル名
- *
- * @exception Win32Exception
+ * @param dllName DLLファイル名
  */
-DllLoader::DllLoader( LPCTSTR dllName )
+DllLoader::DllLoader( const win32::tstring& dllName )
     : dll_()
 {
     // DLLを開く
-    open( dllName );
+    Open( dllName );
 }
 
 /**
@@ -39,37 +37,31 @@ DllLoader::DllLoader( LPCTSTR dllName )
  */
 DllLoader::~DllLoader()
 {
-    close();
+    Close();
 }
 
 /**
  * DLLのオープン
  *
- * @param lpDllName DLLファイル名
- *
- * @exception Win32Exception
- *
- * @pre DLL未作成
+ * @param dllName DLLファイル名
  */
 // DLLのオープン
-void DllLoader::open( LPCTSTR dllName )
+void DllLoader::Open( const win32::tstring& dllName )
 {
-    dll_ = std::shared_ptr< HINSTANCE__ >( ::LoadLibrary( dllName ), &::FreeLibrary );
+	dll_ = std::shared_ptr< HINSTANCE__ >( ::LoadLibrary( dllName.c_str() ), &::FreeLibrary );
     if( dll_.get() == 0 ) {
-		throw Win32Exception( ::GetLastError() );
+		Throw_Win32Exception();
 	}
 }
 
-/**
- * DLLのクローズ
- */
-void DllLoader::close()
+/// DLLのクローズ
+void DllLoader::Close()
 {
     dll_.reset();
 }
 
-// DLLのオープン状態
-bool DllLoader::isOpen() const
+/// DLLのオープン状態
+bool DllLoader::IsOpen() const
 {
     return dll_.get() != 0;
 }

@@ -6,10 +6,10 @@ class DesktopTest : public ::testing::Test
 {
 public:
 
-	virtual void SetUp() {
+	void SetUp() {
 	}
 
-	virtual void TearDown() {
+	void TearDown() {
 	}
 
 protected:

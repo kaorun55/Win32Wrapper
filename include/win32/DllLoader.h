@@ -19,6 +19,9 @@ namespace std {
 	using namespace std::tr1;
 }
 
+#include "win32/SharedType.h"
+#include "win32/Win32Exception.h"
+
 /// Win32ラッパークラス群
 namespace win32
 {
@@ -49,20 +52,20 @@ namespace win32
 	public:
 
 		// コンストラクタ
-		DllLoader() throw();
-		explicit DllLoader( LPCTSTR dllName );
+		DllLoader();
+		DllLoader( const win32::tstring& dllName );
 
 		// デストラクタ
-		virtual ~DllLoader() throw();
+		~DllLoader();
 		
 		// DLLのオープン
-		virtual void open( LPCTSTR dllName );
+		void Open( const win32::tstring& dllName );
 
 		// DLLのクローズ
-		virtual void close() throw();
+		void Close();
 
-		// DLLのオープン状態
-		virtual bool isOpen() const;
+		// DLLのオープン状態を取得する
+		bool IsOpen() const;
 
 		/**
 		 * DLL内の関数のアドレスを取得
@@ -78,14 +81,14 @@ namespace win32
 		 * コンパイルできない。
 		 */
 		template< typename FuncPtr >
-		FuncPtr getProcAddress( LPCTSTR procName, FuncPtr = 0 )
+		FuncPtr GetProcAddress( const std::string& procName, FuncPtr = 0 )
 		{
-			FuncPtr func = reinterpret_cast< FuncPtr >( ::GetProcAddress( dll_.get(), procName ) );
+			FuncPtr func = reinterpret_cast< FuncPtr >( ::GetProcAddress( dll_.get(), procName.c_str() ) );
 			if( func == 0 ) {
 				Throw_Win32Exception();
 			}
 
-			return( func );
+			return func;
 		}
 
 	private:
