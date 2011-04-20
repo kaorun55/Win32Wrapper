@@ -81,10 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\win32\Desktop.h" />
+    <ClInclude Include="..\..\include\win32\DllLoader.h" />
     <ClInclude Include="..\..\include\win32\Win32Exception.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Desktop.cpp" />
+    <ClCompile Include="..\..\src\DllLoader.cpp" />
     <ClCompile Include="..\..\src\Win32Exception.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
