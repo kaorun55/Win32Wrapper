@@ -19,7 +19,7 @@ namespace win32
 	Win32Exception::Win32Exception( DWORD errorCode )
 		: std::runtime_error( "" )
 		, errorCode_( errorCode )
-		, errorMessage_( getErrorMessage( errorCode ) )
+		, errorMessage_( GetErrorMessage( errorCode ) )
 	{
 	}
 
@@ -28,7 +28,7 @@ namespace win32
 		, errorCode_( errorCode )
 	{
 		std::stringstream str;
-		str << fileName << "(" << lineNo << "):" << getErrorMessage( errorCode );
+		str << fileName << "(" << lineNo << "):" << GetErrorMessage( errorCode );
 		errorMessage_ = str.str();
 	}
 
@@ -44,7 +44,7 @@ namespace win32
 	 *
 	 * @return エラーコード
 	 */
-	DWORD Win32Exception::getErrorCode() const
+	DWORD Win32Exception::GetErrorCode() const
 	{
 		return errorCode_;
 	}
@@ -54,7 +54,7 @@ namespace win32
 	 *
 	 * @return エラーメッセージ
 	 */
-	const std::string& Win32Exception::getErrorMessage() const
+	const std::string& Win32Exception::GetErrorMessage() const
 	{
 		return errorMessage_;
 	}
@@ -76,7 +76,7 @@ namespace win32
 	 *
 	 * @return エラーメッセージ
 	 */
-	std::string Win32Exception::getErrorMessage( DWORD errorCode )
+	std::string Win32Exception::GetErrorMessage( DWORD errorCode )
 	{
 		// エラーメッセージ用クラス
 		class ErrorMessage

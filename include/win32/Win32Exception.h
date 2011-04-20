@@ -35,15 +35,15 @@ namespace win32
         ~Win32Exception();
 
         // エラーコードの取得
-        DWORD getErrorCode() const;
+        DWORD GetErrorCode() const;
         // エラーメッセージの取得
-        const std::string& getErrorMessage() const;
+        const std::string& GetErrorMessage() const;
 
         // エラーメッセージの取得
         const char* what() const;
 
         // エラーコードからエラーメッセージの取得
-        static std::string getErrorMessage( DWORD errorCode );
+        static std::string GetErrorMessage( DWORD errorCode );
 
     private:
 
